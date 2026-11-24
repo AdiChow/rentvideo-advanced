@@ -2,6 +2,9 @@
 package com.example.rentvideo.config;
 
 import org.springframework.boot.CommandLineRunner;
+
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -31,7 +34,7 @@ public class AdminSeeder implements CommandLineRunner {
                 || adminPassword == null || adminPassword.isBlank()) {
             throw new IllegalStateException("Admin credentials are missing");
         }
-        String email = adminEmail.trim().toLowerCase();
+        String email = adminEmail.trim().toLowerCase(Locale.ROOT);
 
         if (userRepository.findByEmail(email).isPresent()) {
             return;

@@ -8,6 +8,7 @@ import com.example.rentvideo.dto.VideoRequest;
 import com.example.rentvideo.dto.VideoResponse;
 import com.example.rentvideo.entity.Video;
 import com.example.rentvideo.exception.VideoNotFoundException;
+import com.example.rentvideo.repository.RentalRepository;
 import com.example.rentvideo.repository.VideoRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class VideoService {
 
     private final VideoRepository videoRepository;
+    private final RentalRepository rentalRepository;
 
     public VideoResponse addVideo(VideoRequest request) {
         Video video = new Video();
@@ -69,6 +71,12 @@ public class VideoService {
     public void deleteVideo(Long id) {
         Video existingVideo = videoRepository.findById(id)
                 .orElseThrow(() -> new VideoNotFoundException("Video not found with id :" + id));
+        
+        if (rentalRepository.existsByVideoId(id)) {
+    throw new IllegalStateException(
+        "Cannot delete a video with rental history"
+    );
+}
 
         videoRepository.delete(existingVideo);
     }

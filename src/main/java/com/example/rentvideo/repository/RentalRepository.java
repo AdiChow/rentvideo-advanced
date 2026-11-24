@@ -22,4 +22,5 @@ public interface RentalRepository extends JpaRepository<Rental, Long> {
     );
 
     List<Rental> findByUserId(Long userId);
+    boolean existsByVideoId(Long videoId);
 }

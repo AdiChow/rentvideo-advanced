@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -67,7 +68,7 @@ private final JwtService jwtService;
     );
 
     User user = userRepository.findByEmail(email)
-        .orElseThrow(() -> new RuntimeException("User not found"));
+        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
     String token = jwtService.generateToken(
         user.getEmail(),
