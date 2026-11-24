@@ -40,8 +40,8 @@ A RESTful video rental API built with Spring Boot, Spring Security, Spring Data 
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repository-url>
-cd rentvideo_advanced
+git clone https://github.com/AdiChow/rentvideo-advanced.git
+cd rentvideo-advanced
 ```
 
 ### 2. Configure environment variables
